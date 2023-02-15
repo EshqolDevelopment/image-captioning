@@ -2,7 +2,7 @@ FROM python:3.7-buster
 
 WORKDIR /app
 
-COPY . .
+RUN git clone https://EshqolDevelopment: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@github.com/EshqolDevelopment/image-captioning.git .
 
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
 
@@ -10,4 +10,4 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 8080
 
-CMD ["python3", "main.py"]
+CMD ["/bin/bash", "-c", "git pull && python3 main.py"]
