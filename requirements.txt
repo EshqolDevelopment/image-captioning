@@ -1,0 +1,5 @@
+transformers
+Pillow
+fastapi
+requests
+uvicorn
