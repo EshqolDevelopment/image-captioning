@@ -8,6 +8,6 @@ RUN pip3 install torch torchvision torchaudio --extra-index-url https://download
 
 RUN pip3 install -r requirements.txt
 
-EXPOSE 443
+EXPOSE 80
 
 CMD ["python3", "main.py"]
