@@ -69,10 +69,4 @@ if __name__ == "__main__":
     app = FastAPI()
     app.include_router(api.router)
 
-    uvicorn.run(
-        app,
-        port=443,
-        host='0.0.0.0',
-        ssl_keyfile="./image-captioning.eshqol.com/privkey.pem",
-        ssl_certfile="./image-captioning.eshqol.com/fullchain.pem",
-    )
+    uvicorn.run(app, port=80, host='0.0.0.0')
