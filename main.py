@@ -3,7 +3,7 @@ from io import BytesIO
 from PIL import Image
 from fastapi import APIRouter, FastAPI
 from pydantic import BaseModel
-from uvicorn import run
+import uvicorn
 import requests
 import torch
 
@@ -20,7 +20,6 @@ class App:
         self.model, self.feature_extractor, self.tokenizer, self.device, self.gen_kwargs = self.load_model()
 
         self.router.add_api_route('/get_captions', self.get_caption, methods=['POST'])
-
 
     @staticmethod
     def load_model():
@@ -42,7 +41,6 @@ class App:
         image_content = requests.get(url=image_url).content
         return Image.open(BytesIO(image_content))
 
-
     def predict(self, image: Image) -> str:
         if image.mode != "RGB":
             image = image.convert(mode="RGB")
@@ -56,7 +54,6 @@ class App:
         preds = [pred.strip() for pred in preds]
         return preds[0]
 
-
     def get_caption(self, body: Caption) -> dict:
         try:
             image = self.convert_url_to_pil(body.image_url)
@@ -67,10 +64,15 @@ class App:
             return {'error': str(e)}
 
 
-
 if __name__ == "__main__":
     api = App()
     app = FastAPI()
     app.include_router(api.router)
 
-    run(app, host='0.0.0.0', port=8080)
+    uvicorn.run(
+        app,
+        port=443,
+        host='0.0.0.0',
+        ssl_keyfile="./image-captioning.eshqol.com/privkey.pem",
+        ssl_certfile="./image-captioning.eshqol.com/fullchain.pem",
+    )
