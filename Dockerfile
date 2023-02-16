@@ -2,7 +2,7 @@ FROM python:3.7-buster
 
 WORKDIR /app
 
-RUN git clone https://EshqolDevelopment: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@github.com/EshqolDevelopment/image-captioning.git .
+COPY . .
 
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
 
