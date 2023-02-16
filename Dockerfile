@@ -10,4 +10,4 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 443
 
-CMD ["/bin/bash", "-c", "git pull && python3 main.py"]
+CMD ["python3", "main.py"]
