@@ -13,7 +13,6 @@ class Caption(BaseModel):
 
 
 class App:
-
     def __init__(self):
         self.app = FastAPI()
         self.router = APIRouter()
@@ -27,6 +26,7 @@ class App:
         feature_extractor = ViTFeatureExtractor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
         tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
 
+        print(f"CUDA Available: {torch.cuda.is_available()}")
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         model.to(device)
 
